@@ -1,0 +1,63 @@
+MariaDB [restaurantsystem]> describe accounts;
++------------------+------------+------+-----+---------+----------------+
+| Field            | Type       | Null | Key | Default | Extra          |
++------------------+------------+------+-----+---------+----------------+
+| index            | int(11)    | NO   | PRI | NULL    | auto_increment |
+| role             | text       | NO   |     | customer|                |
+| email            | text       | NO   |     | NULL    |                |
+| phone            | bigint(20) | NO   |     | NULL    |                |
+| username         | text       | NO   |     | NULL    |                |
+| first_name       | text       | NO   |     | NULL    |                |
+| last_name        | text       | NO   |     | NULL    |                |
+| password         | text       | NO   |     | NULL    |                |
+| address          | JSON       | NO   |     | NULL    |                |
+| billing_address  | JSON       | NO   |     | (SAME^) |                |
+| purchase_history | JSON       | NO   |     | []      |                |
+| saved_card_info  | JSON       | NO   |     | []      |                |
+| date             | datetime   | NO   |     | c_tmstmp|                |
++------------------+------------+------+-----+---------+----------------+
+
+
+
+MariaDB [restaurantsystem]> describe items;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| index            | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name             | text         | NO   |     | NULL    |                |
+| price            | double       | NO   |     | NULL    |                |
+| description      | text         | NO   |     | NULL    |                |
+| image            | text(base64) | NO   |     | NULL    |                |
+| ingredients      | text         | NO   |     | NULL    |                |
+| preparation_time | int(11)      | NO   |     | 5       |                |
++------------------+--------------+------+-----+---------+----------------+
+
+
+
+MariaDB [restaurantsystem]> describe commission;
++-----------------+---------+------+-----+---------+----------------+
+| Field           | Type    | Null | Key | Default | Extra          |
++-----------------+---------+------+-----+---------+----------------+
+| index           | int(11) | NO   | PRI | NULL    | auto_increment |
+| incoming_amount | double  | NO   |     | NULL    |                |
+| outgoing_amount | double  | NO   |     | NULL    |                |
+| total_amt_paid  | double  | NO   |     | NULL    |                |
++-----------------+---------+------+-----+---------+----------------+
+
+
+
+MariaDB [restaurantsystem]> describe transactions;
++----------------+------------+------+-----+---------------------+----------------+
+| Field          | Type       | Null | Key | Default             | Extra          |
++----------------+------------+------+-----+---------------------+----------------+
+| index          | int(11)    | NO   | PRI | NULL                | auto_increment |
+| fullname       | text       | NO   |     | NULL                |                |
+| email          | text       | NO   |     | NULL                |                |
+| phone          | bigint(20) | NO   |     | NULL                |                |
+| revenue        | double     | NO   |     | NULL                |                |
+| items_sold     | JSON       | NO   |     | NULL                |                |
+| eta            | int(11)    | NO   |     | NULL                |                |
+| date           | date       | NO   |     | current_timestamp() |                |
+| time           | time       | NO   |     | current_timestamp() |                |
+| completed      | bool (int) | NO   |     | 1                   |                |
++----------------+------------+------+-----+---------------------+----------------+

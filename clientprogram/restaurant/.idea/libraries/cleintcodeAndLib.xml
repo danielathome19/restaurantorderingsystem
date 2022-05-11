@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="cleintcodeAndLib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/restaurant/mysql-connector.jar!/" />
+      <root url="jar://$PROJECT_DIR$/restaurant/javax.mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/restaurant/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/restaurant/smtp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/restaurant/activation.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

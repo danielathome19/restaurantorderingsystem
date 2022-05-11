@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="restaurant:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/restaurant_jar</output-path>
+    <root id="archive" name="restaurant.jar">
+      <element id="module-output" name="restaurant" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/restaurant/mysql-connector.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/restaurant/javax.mail.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/restaurant/mail.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/restaurant/smtp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/restaurant/activation.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

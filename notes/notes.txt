@@ -1,0 +1,61 @@
+Website
+o	Home
+    	Display restaurant info (type of products, photos, etc.), contact info (bottom of page), direct user to correct page, promos/deals, advertising
+o	Register/Login
+    	Push/Pull in SQL table
+    	Customers (and guest users) are given the role “customer”, developer gives the owner “administrator” role (can modify other user roles) 
+o	Menu
+    	EatStreet-like item hierarchy? Sandwiches, drinks, desserts, etc.
+    	Allow users to add items to cart – OPTIONAL modify ingredients of item (no X, extra Y, etc.)
+    	Admin Content Management System (CMS) – edit items (pencil click to edit item name, description, price, ingredients, update preparation time, etc.)
+        •	OPTIONAL – display “slash price” alongside normal price for items on sale (ability to add coupons/deals)
+o	Shopping Cart
+    	Update item quantities, remove items, clear cart, checkout (as user or guest)
+    	Save credit/debit card to account or remove card (OPTIONAL)
+    	Pay with [Toast, Cake, Square, etc.] – enter delivery/pickup details, perform transaction, push transaction to transaction and admin tables
+        •	Use Luhn Algorithm to verify if card numbers are valid (in real-time) 
+        •	If successful, add transaction to transaction table and sale price to commission table (incoming_amount) and run commission script (check if 
+            incoming_amount equals threshold, if so, set outgoing_amount = incoming_amount, reset incoming_amount, and subtract percentage of sale from 
+            outgoing_amount to pay developer, pay the rest to restaurant – otherwise pay all to restaurant), send to Receipt page
+            o	Show option to print, delivery/pickup ETA [using sum of preparation time of each item + distance travel time for delivery], pickup/delivery 
+                information, add to user’s purchase history if logged in. Otherwise, return user to cart if the transaction is unsuccessful
+o	Admin Page
+    	(FOR ADMIN ROLE ONLY) View transaction history, profit, modify user roles, modify home page (display promos/deals, add advertisements, etc.)
+
+
+
+Database System
+o	Account table
+    	Stores all information related to user account
+    	Possible structure:
+        •	index, role (CUSTOMER/ADMIN), email, phone, first_name, last_name, password, address [street, city, state, zip], billing address (SAME_AS_ADDRESS) OR 
+            [street, city, state, zip], purchase_history [[product, modifications, quantity, price, date, time, transaction_id]], 
+            saved_card_info [[number, exp_date, cvv]]
+o	Transaction table
+    	Stores all transactions and related information
+    	Possible structure:
+        •	index, transaction_id, username (OR GUEST), revenue, items_sold {item [ingredients], cost, quantity}, eta, date, time, completed (OPTIONAL, true/false)
+o	Commission table
+    	Stores ongoing profit until a threshold is reached
+        •	When incoming_amount hits a certain threshold, add to outgoing_amount and set to 0
+    	Possible structure:
+        •	index, incoming_amount, outgoing_amount, total_amt_paid
+o	Item table:
+    	Stores all information related to the restaurant products
+    	Possible structure:
+        •	index, name, price, description, (OPTIONAL) image, (OPTIONAL) ingredients, preparation_time (IN MINUTES, 5 BY DEFAULT)
+
+
+
+Serving System
+o	Hosting Server
+    	Stores and hosts web pages and database systems
+    	Runs commission script for each transaction
+o	Commission Script
+    	Automatically ran during each transaction, check commission table, send transactions to restaurant client program to notify restaurant of a 
+        new order. Update total_amt_paid each time a commission is subtracted from outgoing_amount (add commission amount to total, subtract from outgoing)
+o	Restaurant Client Program
+    	Acts as a server waiting for the commission script to notify of a new transaction, display transaction information for 
+        owner (from transaction table) to prepare
+    	OPTIONAL – Make “order ready for pickup” button for restaurant to message server to update delivery ETA to ready – Set “completed” to true; receipt page 
+        will have to automatically refresh every ~60 seconds to parse transaction from table to see if the order is completed yet or not
